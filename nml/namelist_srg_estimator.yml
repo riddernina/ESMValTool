@@ -1,0 +1,59 @@
+###############################################################################
+# namelist_srg_estimator.xml
+# 
+# Description
+# Diagnostic to estimate surge levels along the coast of the North Sea from
+# anomalies in mean sea level pressure and wind components
+# 
+# Author(s)
+# Nina Ridder (KNMI, NL)
+# 
+# Contributor(s)
+# 
+# 
+# Project(s)
+# MAGIC
+# 
+# Reference(s)
+# 
+# 
+# This namelist is part of the ESMValTool
+###############################################################################
+
+GLOBAL:
+  write_plots:       True
+  write_netcdf:      True
+  verbosity:         1
+  exit_on_warning:   False
+  output_file_type:  ps
+
+
+MODELS:
+  - {name: IPSL-CM5A-MR,  project: CMIP5,  mip: 3hr,  exp: historical,  ensemble: r2i1p1,  start: 1996,  end: 2001,  path: /modelpath/CMIP5}
+
+
+
+PREPROCESS:
+  select_level:    None
+  target_grid:     ERA-Interim	#None
+  regrid_scheme:   linear	#None
+  mask_fillvalues: None
+  mask_landocean:  None
+  multimodel_mean: False
+# how to add that vars sould be monthly mean anomalies?
+
+  
+DIAGNOSTICS:
+
+  DIAG:
+    description:  
+    variables:
+      - {name: msl, ref_model: ERA-Interim, field: }
+      - {name: uas, ref_model: ERA-Interim, field: }
+      - {name: vas, ref_model: ERA-Interim, field: }
+    preprocess:
+      target_grid:    ref_model
+      regrid_scheme:  linear
+      mask_fillvalue: True
+    scripts:
+      - {name: srg_estimator.py,  cfg_file: ./nml/cfg_srg_estim/cfg_srg_estim.conf}
