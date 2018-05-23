@@ -41,6 +41,8 @@ PREPROCESS:
   mask_landocean:  None
   multimodel_mean: False
 # how to add that vars sould be monthly mean anomalies?
+# where to add box selection of data?
+# (lon_min = -13.5; lon_max = 13.5; lat_min = 47.0; lat_max = 65.5)
 
   
 DIAGNOSTICS:
@@ -55,5 +57,6 @@ DIAGNOSTICS:
       target_grid:    ref_model
       regrid_scheme:  linear
       mask_fillvalue: True
+      #lons/lats?
     scripts:
       - {name: srg_estimator.py,  cfg_file: ./nml/cfg_srg_estim/cfg_srg_estim.conf}

@@ -192,7 +192,7 @@ def main():
     logger.info("Using config file %s", config_file)
 
     # check NCL version
-    ncl_version_check()
+    #ncl_version_check()
 
     cfg['synda_download'] = args.synda_download
 
